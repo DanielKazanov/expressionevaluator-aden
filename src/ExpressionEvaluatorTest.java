@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -349,6 +350,7 @@ class ExpressionEvaluatorTest {
 		
 	}
 	
+	@Test
 	@Order(6)
 	void test_ImplicitMult() {
 		ExpressionEvaluator exprEval = new ExpressionEvaluator();
@@ -390,6 +392,7 @@ class ExpressionEvaluatorTest {
 		drslt = Double.parseDouble(results[1].trim());
 		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
 		assertEquals(-45,drslt,0.00005);  
+
 	}
 
 	@Test
@@ -509,5 +512,75 @@ class ExpressionEvaluatorTest {
 		assertTrue(errMatch);
 		
 	}
+	@Test
+	@Disabled
+	@Order(9)
+	void test_ImpMultNeg1Test() {
+		ExpressionEvaluator exprEval = new ExpressionEvaluator();
+		String evalResults;
+		String[] results;
+		int testNum =0;
+		boolean errMatch;
+		double drslt;
+		
+		System.out.println("Implicit Multiplication combined with negation");
 
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("5+-(1-6)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(10,drslt,0.00005);  
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("5--(1-6)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(0,drslt,0.00005);  
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("5*-(1-6)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(25,drslt,0.00005);  
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("5/-(1-6)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(1,drslt,0.00005);  
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("5/-(1-6)+(100)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(101,drslt,0.00005);  
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("-(1-6)+(100)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(105,drslt,0.00005);  
+
+		// test #
+		testNum++;
+		evalResults = exprEval.evaluateExpression("-(1+-(10-2)+2)+(100)");
+		results = evalResults.split("=");
+		drslt = Double.parseDouble(results[1].trim());
+		System.out.println("Test # "+testNum+"\nExpression Results: "+evalResults+"\nResult: "+drslt+"\n\n");
+		assertEquals(105,drslt,0.00005);  
+
+	}
 }
