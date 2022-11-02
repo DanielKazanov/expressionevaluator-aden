@@ -513,7 +513,7 @@ class ExpressionEvaluatorTest {
 		
 	}
 	@Test
-	@Disabled
+//	@Disabled
 	@Order(9)
 	void test_ImpMultNeg1Test() {
 		ExpressionEvaluator exprEval = new ExpressionEvaluator();
