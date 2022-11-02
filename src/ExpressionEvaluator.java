@@ -149,6 +149,10 @@ public class ExpressionEvaluator {
 			return false;
 		}
 		
+		if (in.matches(".*(\\-|\\+|\\*|\\/)(\\))(\\-|\\+|\\*|\\/).*")) {
+			return false;
+		}
+		
 		return true;
 	}
 	
